@@ -1,43 +1,67 @@
-{% extends "base.html" %}
-
-{% block head %}
+{% extends "base.html" %} {% block head %}
 
 <title>Flask-web</title>
 
-{% endblock %}
+{% endblock %} {% block body %}
 
-{% block body %}
+<div class="container mx-auto">
+	<div class="header prose mx-auto mt-5 text-center">
+		<h1>Task Master</h1>
+	</div>
 
-<div class="container">
-    <div class="header">
-        <h1>Task master</h1>
-    </div>
+	<!-- form -->
+	<div class="mt-5">
+		<form action="/" method="POST">
+			<input
+				type="text"
+				placeholder="Content"
+				name="content"
+				id="content"
+				class="input input-bordered w-full max-w-xs"
+			/>
+			<input type="submit" value="Add Task" class="btn btn-danger" />
+		</form>
+	</div>
 
-    <!-- content -->
-    <table border="1" class="w-full">
-        <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>
-                <a href="">Delete</a>
-                <br>
-                <a href="">Update</a>
-            </td>
-        </tr>
-    </table>
-    
-    <br>
-    <br>
+	<!-- content -->
+	<div class="overflow-x-auto mt-5">
+		<table class="table w-full">
+			<!-- head -->
+			<thead>
+				<tr>
+					<th></th>
+					<th>Task</th>
+					<th>Added</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if task|length < 1 %}
+				<tr>
+					<th colspan="4">
+						<p class="bold text-center">Congratulations, you have no task</p>
+					</th>
+				</tr>
+				{% else %} {% for task in task %}
+				<!-- row 1 -->
 
-    <form action="/" method="POST">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task">
-    </form>
+				<tr>
+					<th>{{ task.id }}</th>
+					<td>{{ task.content }}</td>
+					<td>{{ task.date_created.date() }}</td>
+					<td>
+						<a href="update/{{ task.id }}">
+							<button class="btn btn-accent">Update</button>
+						</a>
+						<a href="delete/{{ task.id }}">
+							<button class="btn btn-danger">Delete</button>
+						</a>
+					</td>
+				</tr>
+				{% endfor %} {% endif %}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 {% endblock %}

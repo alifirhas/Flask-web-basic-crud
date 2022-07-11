@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block head %}
+
+<title>Flask-web</title>
+
+{% endblock %} {% block body %}
+
+<div class="container mx-auto">
+	<div class="header prose mx-auto mt-5 text-center">
+		<h1>Update Task Master</h1>
+	</div>
+
+	<!-- form -->
+	<div class="mt-5">
+		<form action="/update/{{ task.id }}" method="POST">
+			<input
+				type="text"
+				placeholder="Content"
+				name="content"
+				id="content"
+				class="input input-bordered w-full max-w-xs"
+                value="{{ task.content }}"
+			/>
+			<input type="submit" value="Update Task" class="btn btn-danger" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}
